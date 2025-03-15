@@ -4,6 +4,7 @@ import com.example.airdropclone.model.Room;
 import com.example.airdropclone.model.WebSocketMessage;
 import com.example.airdropclone.service.RoomsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -17,16 +18,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class WebSocketHandler extends TextWebSocketHandler {
 
   private final ObjectMapper objectMapper;
   private final RoomsService roomsService;
   private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
-
-  public WebSocketHandler(ObjectMapper objectMapper, RoomsService roomsService) {
-    this.objectMapper = objectMapper;
-    this.roomsService = roomsService;
-  }
 
   @Override
   public void afterConnectionEstablished(WebSocketSession session) {
@@ -237,5 +234,4 @@ public class WebSocketHandler extends TextWebSocketHandler {
       throw e;
     }
   }
-
 }
